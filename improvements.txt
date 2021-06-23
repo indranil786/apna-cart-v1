@@ -1,0 +1,15 @@
+Contains all the necessary improvements that can be made to this project.
+- Add the try and catch block to all the routes
+- Add Error Page for any problem faced .
+- Add the flash card for all operations
+- Add the flash card for comment section
+-Develop the root landing Page
+-Develop a admin portal
+- Develop Profile Page for user 
+- Develop Image Uploading Facility.
+-Add Authentication Using Google Login
+- Authentication so that only a authenticated and proper user can edit/send a post request.
+-Change the start rating system 
+- Change the star rating system.
+- Add Payment Gateway
+- Add Google Authentication

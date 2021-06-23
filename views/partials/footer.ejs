@@ -1,0 +1,47 @@
+<footer class="bg-light text-center text-lg-start sticky-bottom ">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+   <h6>Apna Cart © 2021 Copyright: <a class="text-dark" href="https://www.indranilkar.ml/">Indranil Kar</a></h6> 
+  </div>
+  <!-- Copyright -->
+</footer>
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"
+></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> 
+
+<script>
+  (() => {
+  'use strict';
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation');
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms).forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  });
+})();
+
+try{
+var close=document.querySelector(".btn-close");
+setTimeout(()=>{close.click();},3000)
+}
+catch(e){
+    console.log("Alert Closed Already")
+}
+
+
+
+</script>
+
+</body>
+</html>
+

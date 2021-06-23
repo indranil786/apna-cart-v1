@@ -1,0 +1,54 @@
+<%- include("../partials/header") %>
+
+<title>Add a Product</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<main class="body-container">
+    <div class="home container">
+        <h1 class="text-center my-2">Add a product Item</h1>
+        <hr>
+        <div class="forms w-75 m-auto">
+            <form action="/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+                <div class="form-outline mb-5">
+                    <input type="text" id="name" class="form-control" name="name" required/>
+                    <label class="form-label" for="name">Product Name</label>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Not a suitable name</div>
+                  </div>
+                  <div class="form-outline mb-3">
+                    <input type="text" id="price" class="form-control" name="price" required/>
+                    <label class="form-label" for="price">Price</label>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Not a valid price!</div>
+                  </div>
+                  <h6 class="my-3 text-center">You can give either a image file or a image link</h6>
+                  <div class="form-outline mb-4">
+                    <input type="file" class="form-control" name="image" id="customFile" />
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Not a valid image file!</div>
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+                    <input type="text" id="img" class="form-control" name="img"/>
+                    <label class="form-label" for="img">Product Image Link</label>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Not a valid image link</div>
+                  </div>
+                  <div class="form-outline mb-5">
+                    <textarea class="form-control" id="desc" rows="4" name="desc" required></textarea>
+                    <label class="form-label" for="desc">Product Description</label>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Not a proper description</div>
+                  </div>
+                
+                  <div class="btn-container d-flex flex-column w-25 justify-center m-auto">
+                    <button type="submit" class="btn btn-primary mb-4">Add Product</button>
+                    <button type="reset" class="btn btn-primary mb-4">Reset</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>

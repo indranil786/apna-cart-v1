@@ -1,0 +1,61 @@
+<%- include("../partials/header") %>
+
+<title>Home Page</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/flash") %> 
+<main>
+    <div class="home-body container mt-4">   
+        <h2 class="text-center">Welcome to Apna Cart <i class="fas fa-shopping-cart"></i></h2>
+        <hr>
+        <h4>All products</h4>
+        <hr>
+        <section class="product-holder mt-2">
+          <% if(data.length<1){ %> 
+            <h3 class="text-center my-3">Sorry no products are available</h3>
+          <%}
+          else{%>
+            <div class="card-row d-flex row">
+
+                <% for(let index=data.length-1;index>=0;index--){
+                    let item=data[index];
+                    %>
+                    
+                    <div class="card col-md-3 ">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                          
+                          <% if(item.image !=undefined && item.image.data!=undefined){ %>
+                          <img
+                            src="data:image/<%=item.image.contentType%>;base64,<%=item.image.data.toString('base64')%>"
+                            class="img-fluid"
+                          />
+                        <%}
+                        else{ %>
+                        <img
+                            src="<%=item.img%>"
+                            class="img-fluid"
+                            alt="Item Image"
+                          />
+                       <%}%>
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                          </a>
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"> <%= item.name%> </h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Price &#8377; <%=item.price%></h6>
+                          <p class="card-text">
+                            <%=item.desc.slice(0,50)%>...
+                          </p>
+                          <a href="/products/<%=item._id%>" class="btn btn-primary">View More</a>
+                        </div>
+                      </div>
+                <%}%>
+            </div>
+          <%}%>
+            
+        </section>
+    </div>
+</main>
+<%- include("../partials/footer") %>

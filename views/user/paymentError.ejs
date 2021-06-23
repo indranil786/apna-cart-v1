@@ -1,0 +1,19 @@
+<%- include("../partials/header") %> 
+<title>ERROR</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<div class="errorpage d-flex flex-column justify-content-center align-items-center text-center" style="height:70vh">
+<img src="/images/Cross.png" alt="" width="100px" height="100px" class="my-2">
+<h5>Payment Failed !</h5>
+<h5>Error Code : <%=error.code%></h5>
+<h5>Error Description : <%=error.description%></h5>
+<h5>Error Reason : <%=error.reason%></h5>
+<h6 class="my-3">You will be redirected to the cart page in few seconds...</h6>
+</h6>
+<a href="/user/cart">CLick Here to redirect</a>
+</div>
+<%- include("../partials/footer") %>
+<script>
+    setTimeout(()=>{window.location.href="/user/cart"},6000);
+</script>

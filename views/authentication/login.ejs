@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+<title>Login</title>
+</head>
+<body>
+<%- include('../partials/navbar') %>
+
+ <main>
+     <% if(error!=""){%>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <%}
+         if(register!=""){%>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= register %> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <%}%>
+    <div class="container">
+        <h2 class="text-center mt-5">Login Into your Account</h2>
+       
+        <div class="form-section d-flex justify-content-center align-items-center my-5" >
+            <form action="/login" method="post" class="login-form needs-validation w-50" novalidate>
+                <!-- 2 column grid layout with text inputs for the first and last names --> 
+                <div class="form-outline mb-4">
+                      <input type="text" id="username" class="form-control" name="username" />
+                      <label class="form-label" for="username">User Name</label>
+                    </div>
+                  
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" id="password" class="form-control" name="password"/>
+                  <label class="form-label" for="password">Password</label>
+                </div>
+              
+                <!-- Checkbox -->
+                
+              
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
+              
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>New User? <a href="/register">Click Here to Register</a></p>
+                  <p>or login with:</p>
+                  
+                  <!--
+                    <a href="/auth/google" class="btn btn-primary btn-floating mx-1 mb-2" style="transform:scale(1.2)">
+                    <i class="fab fa-google"></i>
+                  </a>     
+                  <h5>Google</h5>   
+                    -->
+                 
+
+                  <a href="/auth/google" >
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google Img" height="50px" width="50px">
+                    </a>
+                  
+                
+                </div>
+              </form>
+         </div>
+    </div>
+     
+ </main>
+<%- include('../partials/footer') %> 

@@ -1,0 +1,67 @@
+<%- include("../partials/header") %>
+
+<title>Admin Home</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/flash") %>
+<main>
+    <div class="container my-3">
+        <h2 class="text-center">Products Page</h2>
+        <hr>
+        <div class="newButton-container d-flex justify-content-center my-2">
+            <!--
+                 <div class="m-3 d-flex justify-content-center align-items-center" id="createNewButton">
+                <a href="">Create New <i class="fas fa-plus-circle"></i></a>
+            </div>
+             --><a href="/products/new" class="create-new btn btn-success btn-lg" id="createNewButton">Create New <i class="fas fa-plus-circle"></i></a>
+        </div>
+        <h4>All Products</h4>
+        <hr>
+        <%if(data.length<1){%>
+            <h3 class="text-center my-3">No Products to show! </h3>
+        <%}
+        else{%>
+        <div class="products-list">
+            
+            <ul class="list-group">
+            <% for(item of data.reverse()){ %> 
+                <li class="list-group-item">
+                    <div class="productList d-flex row">
+                        <div class="itemPhoto col-md-2  d-flex align-center">
+                            <%if(item.image.data!=undefined){%>
+                                <img src="data:image/<%=item.image.contentType%>;base64,<%=item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+    
+                            <%}
+                            else{%>
+                                <img src="<%=item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                            <%}%>
+                            
+                            
+                        </div>
+                        <div class="itemProd col d-flex align-items-center">
+                            <div class="prodInfo p-2">
+                                <h5 class="name"><%=item.name%></h5>
+                                <h6>Price : &#x20B9; <%=item.price%></h6>
+                            </div>
+                        </div>
+                        
+                            <div class="itemProd d-flex align-items-center justify-content-evenly align-items-center col-md-4 ">
+                                <a href="/products/<%=item._id%>" class="btn btn-primary">View</a>
+                                <a href="/products/<%=item._id%>/edit" class="btn btn-warning">Edit <i class="far fa-edit"></i></a>
+                                <form action="/products/<%=item._id%>/delete?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger btn">Remove <i class="far fa-trash-alt"></i></button>
+                                </form>
+                             </div>
+   
+                        
+                        
+                    </div>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+   <% }%>
+    </div>
+</main>
+<%- include("../partials/footer") %>

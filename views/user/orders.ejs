@@ -1,0 +1,67 @@
+<%- include("../partials/header") %> 
+<title>Orders</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/flash") %> 
+<main>
+<div class="container">
+    <h2 class="order-heading my-3">Your Orders</h2>
+    <hr>
+    <% if(orders.length<1){ %>
+        <h2 class="text-center">You Dont have Any orders Yet ! </h2>
+    <%}
+    else{%> 
+    <section class="order-list">
+        <% for(let item of orders.reverse()){%>
+            <div class="card  my-4">
+                <div class="card-header "> <h5>Date Of purchase : <%=String(item.purchaseDate).slice(0,16)%> Order Id : <%=item.orderid%></h5></div>
+                
+                <div class="card-body row">
+                    <ul class="list-group">
+                        <% let count=0;
+                        for(let itemList of item.orderList) { count++  %>
+                           
+                            <li class="list-group-item">
+                                <h6>Product no : <%=count%></h6>
+                                <%  if(itemList.item==null){%>
+                                    <h5 class="text-center">This Product no longer exists sorry we cant display its information !</h5>
+                                <%}
+                                else{%>
+                                <div class="itemList row">
+
+                                    <div class="itemList-img col-md-2" >
+                                        <%if(itemList.item.image.data){%>
+                                            <img src="data:image/<%=itemList.item.image.contentType%>;base64,<%=itemList.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+                                        <%}
+                                        else{%>
+                                            <img src="<%=itemList.item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                                        <%}%>
+                                    </div>
+                                    <div class="itemList-name col-5 d-flex align-items-center p-3">
+                                        <h5><%=itemList.item.name%></h5>
+                                    </div>
+                                    <div class="itemList-price col d-flex align-items-center p-3">
+                                        <h5> Price :  &#x20B9; <%=itemList.item.price%></h5>
+                                    </div>
+                                    <div class="itemList-quantity col d-flex align-items-center p-3">
+                                        <h5> Quantity : <%=itemList.quantity%></h5>
+                                    </div>
+                                </div>
+                            <%}%>
+                            </li>
+                         <%}%> 
+                    </ul>
+                
+                </div>
+                <div class="card-footer text-end">
+                    <h5>Payment Id : <%=item.paymentid%> &nbsp; Amount Paid :  &#x20B9; <%=item.finalPrice%></h5>
+                </div>
+            </div>
+            <hr>
+        <%} %> 
+    </section>
+<%}%>
+</div>
+</main>
+<%- include("../partials/footer") %>

@@ -1,0 +1,84 @@
+<%- include('../partials/header') %>
+<title>Register</title>
+</head>
+<body>
+<%- include('../partials/navbar') %>
+
+ <main>
+     <% if(register!=""){%>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= register %> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <%}%>
+    <div class="container">
+        <h2 class="text-center mt-5">Register Your Account</h2>
+       
+        <div class="form-section d-flex justify-content-center align-items-center my-5" >
+            <form action="/register" method="post" class="register-form needs-validation w-50" enctype="multipart/form-data" novalidate>
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class=" mb-4">
+                  <div class="image-port">
+                    <img src="https://toppng.com/uploads/preview/app-icon-set-login-icon-comments-avatar-icon-11553436380yill0nchdm.png" height="90px" width="90px" class="profile-photo m-auto" id="dp-pick">
+                  </div>
+                    <input type="file" class="form-control" name="image" id="files"/>
+                  
+                </div>
+             
+                    <div class="form-outline mb-4">
+                      <input type="text" id="username" class="form-control" name="username" required />
+                      <label class="form-label" for="username">User Name</label>
+                    </div>
+                  
+                  
+                
+              
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" class="form-control" name="email" required />
+                  <label class="form-label" for="email">Email address</label>
+                </div>
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" id="password" class="form-control" name="password" required/>
+                  <label class="form-label" for="password">Password</label>
+                </div>
+              
+                <!-- Checkbox -->
+                <div class="form-outline mb-4">
+                  <label for="role" class="ms-2"><h6>User Role :</h6></label>
+                  <select class="form-select" aria-label="role" name="role">
+                    <option selected value="Customer">Customer</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+               
+                </div>
+                
+              
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+              
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>Already a registered user? <a href="/login">Click here to Login</a> </p>
+                  <p>or sign up with:</p>
+                  <a href="/auth/google">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google Img" height="50px" width="50px">
+                    </a>
+                  
+                </div>
+              </form>
+         </div>
+    </div>
+     
+ </main>
+ <script>
+   
+   document.getElementById('files').onchange = function () {
+     console.log("Hello There")
+  var src = URL.createObjectURL(this.files[0])
+  document.getElementById('dp-pick').src = src
+}
+ </script>
+<%- include('../partials/footer') %> 

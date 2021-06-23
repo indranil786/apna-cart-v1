@@ -1,0 +1,154 @@
+<%- include("../partials/header") %> 
+
+<title>Buy <%=data.name%></title>
+<style>
+  .action-button .btn{
+    margin-right: 5px;
+  }
+</style>
+</head>
+<body>
+<%- include("../partials/navbar")%>
+<main>
+<div class="container-fluid my-2">
+  <%- include("../partials/flash") %> 
+
+<h3 class="text-left">Your Product</h3> 
+<div class="product-comment row">
+  <section class="product-details col-md-7">
+    <div class="card" >
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                          <% if(data.image && data.image.data!=undefined){%>
+                            <img src="data:image/<%=data.image.contentType%>;base64,<%=data.image.data.toString('base64')%>" class="img-fluid"/>
+                          <%}
+                          else {%>
+                          <img
+                              src="<%=data.img%>"
+                              class="img-fluid"
+                            />
+                  <%}%>
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                          </a>
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"> <%= data.name%> </h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Price &#8377; <%=data.price%></h6>
+                          <p class="card-text">
+                            <%=data.desc%>
+                          </p>
+                          <div class="action-button d-flex flex-column align-items-center ">
+                            <div class="allbuttons">
+                              <div class="addtocart mb-2">
+                                <%
+                                  let addtoCart=`/user/cart/${data._id}`
+                                   %>
+                                <form action="<%=addtoCart%>" method="post" class="d-flex justify-content-evenly">
+                            <button type="submit" class="btn btn-success">Add to Cart</button>
+                            <div class="form-outline">
+                              <input type="number" id="typeNumber" class="form-control " min=1 max=5 value="1" name="quantity"/>
+                              <label class="form-label" for="typeNumber">Quantity</label>
+                            </div>
+                            
+                            </form> 
+                              </div>
+                              <%if(loginUser && loginUser.role=='Admin'){%>
+                            <div class="adminButton d-flex justify-content-evenly">
+                              <a href="/admin/products" class="btn btn-primary">Admin DashBoard</a>
+                            </div>
+                          <%}%>
+                            </div>
+                          
+                          
+                          </div>
+                          
+                          <!-- <a href="/products/<%=data._id%>" class="btn btn-success"></a> -->
+                        </div>
+                      </div>
+</section> 
+<section class="review-details col-md-5">
+  <h2>Create a Review</h2>
+  <form action="/products/<%=data._id%>/reviews" class="rating-system" method="POST">
+    <div class="rating-num mb-2">
+      <label class="form-label" for="customRange2">Give Your Rating</label>
+      <div class="range">
+        <fieldset class="starability-grow">
+          
+          <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
+    </div>
+    <div class="review-item form-outline mb-3">
+      <textarea class="form-control" id="textAreaExample" name="comment" rows="4"></textarea>
+      <label class="form-label" for="textAreaExample">Write a Product Review</label>
+    </div>
+    <div class="submit-button"><button type="submit" class="btn btn-primary mb-4">Save</button></div>
+  </form>
+ 
+  <div class="all-comments">
+    <h2> Product Reviews</h2>
+    <hr>
+    <div class="all-reviews">
+      <% if(data.reviews.length>0){
+        let avgSum=0;
+        data.reviews.forEach((item)=>{
+          avgSum+=item.rating
+        })
+        avgSum=Math.round(avgSum/data.reviews.length);
+        if(avgSum>0){%>
+          <div class="avgRating my-3">
+            <h4>Average Customer Rating</h4>
+            <p class="starability-result mt-2" data-rating="<%=avgSum%>"></p>
+            <h5><i>Rating : </i><%=avgSum%> out of 5</h5>
+          </div>
+        <%}
+        for(index of data.reviews.reverse()){ %> 
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Rating : <p class="starability-result mt-2" data-rating="<%=index.rating%>"></p></h5>
+            <i class="card-subtitle mb-2 text-muted">given by <strong>"<%=index.user%>" </strong>(verfied user)</i>
+            <p class="card-text">
+              <%= index.comment %> 
+            </p>
+            <% if(loginUser){
+              if(loginUser.username==index.user){%>
+            <div class="cardbtn pb-2 d-flex">
+              
+              <a type="button" href="/products/<%=data._id%>/reviews/<%=index._id%>" class="btn btn-primary btn-sm me-2">Edit</a>
+              <form action="/products/<%=data._id%>/reviews/<%=index._id%>?_method=DELETE" method="post">
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+          <%}
+            }
+            if(index.date){%>
+            <div class="card-footer text-muted"><i>Created On <%=String(index.date).slice(0,10)%></i></div>
+            <%}%>
+          </div>
+        </div>
+      <%}
+      }
+        
+      else{%>
+        <h3 class="no-data">No reviews yet!</h3>
+        
+        <% }%>
+        
+    </div>
+  </div>
+</section>
+</div>  
+
+</div>    
+</main>
+<%- include("../partials/footer") %> 

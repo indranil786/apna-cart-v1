@@ -1,0 +1,47 @@
+.navbar{
+    position:sticky;
+    width:100%;
+    top: 0;
+    left:0;
+    z-index: 2;
+}
+.image-port{
+    width:100%;
+    padding:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+body{
+    background-color: #f0f0f0;
+}
+#dp-pick{
+    border-radius: 50px;
+    margin:auto;
+}
+.td,th{
+    padding:5px;
+    text-align: left;
+}
+.actions .action-item{
+    background-color: #2978B5;
+    text-decoration: none;
+    color: white;
+    height:200px;
+    border-radius:12px;
+    
+    
+}
+.actions .action-item a,#createNewButton a{
+    text-decoration: none;
+    color: white;
+    font-size:1.5rem;
+}
+#createNewButton{
+    font-size:1.2rem;
+}
+
+.accordion-item{
+    border: none;
+    border-bottom: 1px solid #DDDDDD;
+}

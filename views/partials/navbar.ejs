@@ -1,0 +1,88 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a class="navbar-brand mt-2 mt-lg-0 ms-4" href="/">
+            <h4>Apna Cart <i class="fas fa-shopping-cart"></i></h4>
+        </a>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+           
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><h5>Home</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/home"> <h5>Admin <i class="fas fa-user-shield"></i></h5> </a>
+                </li>
+              
+            </ul>
+            <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <% if(loginUser){ %>
+                <div class="userName me-3"><h5>Hello <%= loginUser.username%></h5></div>
+            <%}%> 
+            <a class="text-reset me-3" href="/user/cart/">
+                <i class="fas fa-shopping-cart" style="font-size: 1.2rem;"></i>
+                <%let cartLength=0 ;if(loginUser){cartLength=loginUser.cart.length} %> 
+                <span class="badge rounded-pill badge-notification bg-success"><%=cartLength%></span>
+            </a>
+
+            <!-- Notifications -->
+          
+
+            <!-- Avatar -->
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink"
+                role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+        
+              
+               <% var photourl
+               try{
+               photourl=loginUser.photo||`data:image/${loginUser.image.contentType};base64,${loginUser.image.data.toString('base64')}` }
+               catch(e){
+                   photourl=`https://toppng.com/uploads/preview/app-icon-set-login-icon-comments-avatar-icon-11553436380yill0nchdm.png`}%>
+            
+                <img src="<%= photourl%>" class="rounded-circle" height="35" alt="" width="35"
+                    loading="lazy" alt="Not Found"/>
+                
+                  
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <% if(loginUser){ %> 
+                
+                <li>
+                    <a class="dropdown-item" href="/user/orders">Your Orders</a>
+ 
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </li>
+            <%}
+            else {%>
+                <li>
+                    <a class="dropdown-item" href="/register">Register</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/login">Login</a>
+                </li>
+            <% } %>
+            </ul>
+        </div>
+        <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

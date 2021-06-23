@@ -1,0 +1,252 @@
+<%- include("../partials/header") %>
+
+<title>Cart</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/flash") %>
+<div class="alert-target">
+  
+</div>
+<main class="container">
+    <div class="cartinto mt-3">
+        <h1 class="my-2">Your Cart </h1>
+        <hr>
+    </div>
+    <%if(data.length<1){%>
+        <h2 class="text-center">Hey <%=loginUser.username%> Your Cart is Empty ! Shop Now!</h2>
+    <%}
+    else{%>
+    <div class="cartinfo row">
+        <div class="col-md-7">
+            <ul class="list-group">
+                <% for(item of data.reverse()){%>
+               <li class="list-group-item">
+                <div class="cartItem d-flex row">
+                    <div class="itemPhoto col-4 d-flex align-center">
+                        <%if(item.item.image.data!=undefined){%>
+                            <img src="data:image/<%=item.item.image.contentType%>;base64,<%=item.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+
+                        <%}
+                        else{%>
+                            <img src="<%=item.item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                        <%}%>
+                        
+                        
+                    </div>
+                    <div class="itemProd col d-flex align-items-center">
+                        <div class="prodInfo p-2">
+                            <h5 class="name"><%=item.item.name%></h5>
+                            <h6>Price : &#x20B9; <%=item.item.price%></h6>
+                            <h6>Quantity: <%=item.quantity%></h6>
+                        </div>
+                    </div>
+                    <div class="actionButton d-flex align-items-center justify-content-center col-md-2">
+                        <form action="/user/cart/<%=loginUser._id%>/<%=item.item._id%>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                </li>
+               <%}%> 
+            </ul>
+        </div>
+        <div class="col-md-5">
+        <div class="finalBill">
+            <div class="card">
+                <div class="card-header text-muted"><h5>PRICE DETAILS</h5></div>
+                <div class="card-body">
+                    <div class="itemList p-2">
+                        <ul  style="list-style: none; padding-left:0;">
+                            <%let finalPrice=0;
+                            for(item of data){
+                                    finalPrice+=item.quantity*item.item.price;
+                            }
+                            let itemDisplay=`items`
+                            if(data.length==1)
+                            itemDisplay=`item`;
+                        
+                            let discount=Math.round(20/100*finalPrice);
+                            let totalPrice=finalPrice-discount;
+                            %>
+                            <li class="py-2 d-flex justify-content-between"><h6>Price<span>(<%=data.length%> <%=itemDisplay%>)</span></h6> <h6>&#x20B9; <%=finalPrice%></h6></li>
+                            <li class="py-2 d-flex justify-content-between"><h6>Discount</h6> <h6 class="text-success">- &#x20B9; <%=discount%></h6></li>
+                            <li class="py-2 d-flex justify-content-between"><h6>Delivery</h6> <h6 class='text-success'>FREE</h6></li>
+                            <hr>
+                            <li class="d-flex justify-content-between"><h5>Total Price</h5> <h6>&#x20B9; <span id="finalPrice"><%=totalPrice%></span></h6></li>
+                        </ul>
+                    </div>                
+                </div>
+                <div class="card-footer text-success text-center">You Saved 20% off on this order</div>
+            </div>
+        </div>
+        <div class="finalBillButton d-grid gap-2 py-3">
+            <button type="button" class="btn btn-success btn-lg" id="rzp-checkout">PLACE ORDER</button>
+            <div
+            class="modal fade"
+            id="paymentModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            >
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Your Order Id : <span id="paymentModalLabel">odal title</span></h5>
+                    <button
+                    type="button"
+                    class="btn-close"
+                    data-mdb-dismiss="modal"
+                    aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="content p-3">
+                        <ul>
+                            <li>This is a test payment gateway, i.e ,it will not deduct any money.</li>
+                            <li>Click on the Paynow button to open the Razor Pay Payment Gateway.</li>
+                       <li> After the payment gateway opens, you need to enter your phone number or change any details.</li>
+                       <li>To initiate a payment a click on the card section and use any one of the following dummy cards .</li>
+                       <br>
+                       <li>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Card Network</th>
+                                    <th>Card Number</th>
+                                </tr>
+                                <tbody>
+                                    <tr>
+                                       <td>Master Card</td> 
+                                       <td>5104 0600 0000 0008</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Visa</td>                                      
+                                        <td>4111 1111 1111 1111</td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                        </li>
+                        <br>
+                        <li>Give any proper CVV and Expiry Date and click on pay.</li>
+                        <li>A new dialog box opens. If your want the Payment to be successfull,Click on Success otherwise click on Payment Fail.</li>
+                        </ul>
+                        
+                        
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                    Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="rzp-payment">Pay Now</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <%}%>
+</main>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script >
+    const postOrder= async (url,data)=>{
+          console.log("Entered in to fetch")
+            const response= await fetch(url,{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(data)
+            })
+            return response.json();
+        }
+    const razorpay=(order)=>{
+        var options = {
+                    "key": "rzp_test_jE6H7NuN99EMX7",
+                    "amount": order.amount,
+                    "currency": "INR",
+                    "name": "APNA CART",
+                    "description": "Test Transaction",
+                    "order_id": order.id,
+                    "image": "https://pngimg.com/uploads/shopping_cart/shopping_cart_PNG38.png",
+                    "handler": function (response){
+                        // alert(response.razorpay_payment_id);
+                        // alert(response.razorpay_order_id);
+                        // alert(response.razorpay_signature)
+                        console.log(response);
+                        console.log(response)
+                        response.order=order;
+                        fetch('/user/order/verify',{
+                          method: 'POST',
+                          headers: {
+                          'Content-Type':'application/json'
+                            },
+                            body:JSON.stringify(response)
+                          }).then((res)=>{return res.json()}).then((resData)=>{if(resData.status==`success`)
+                                window.location.href=`/user/orders`}).catch(()=>console.log("OOps Could not send Data"))
+                    },
+                    "prefill": {
+                        "name": "<%=loginUser.username%>",
+                        "email": "<%=loginUser.email%>",
+                        
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#00BCD4"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response){
+                        
+                        fetch("/user/order/paymentfail",{
+                            method: "POST",
+                            headers: {
+                                'Content-Type': "application/json"
+                            },
+                            body: JSON.stringify(response)
+                        }).then((res)=>{return res.json()}).then((res)=>{window.location.href=res.redirect});
+                });
+                console.log("Hit the RZP")
+                rzp1.open();
+               
+    }
+    document.getElementById("rzp-checkout").addEventListener("click",(e)=>{
+          e.preventDefault();
+          const amount=document.getElementById("finalPrice").innerText*100;
+          console.log(amount);
+          let data={
+            amount:amount,
+            currency:"INR",
+          }
+
+          postOrder("/user/order",data).then((order)=>{
+            console.log(order);
+            if(order.failure){
+                window.location.href = "/user/cart";
+            }
+            else{
+            document.getElementById('paymentModalLabel').innerText=order.id;
+            const myModal = new mdb.Modal(document.getElementById('paymentModal'),{backdrop:`static`});
+            myModal.show();
+            document.getElementById('rzp-payment').addEventListener("click",(e)=>{
+                razorpay(order);
+            })
+        }
+        })
+        })
+    //     .catch((e)=>{
+    //             document.getElementById('alert-target').innerHTML=`<div class="alert alert-danger" id="fail-alert" role="alert">
+    //     There was a problem with payment! Please Try again!
+    //   </div>`
+    //   const myAlert = document.getElementById('fail-alert');
+    //   const bsAlert = new bootstrap.Alert(myAlert);
+    //   setTimeout(()=>{bsAlert.close()},3000);
+    //     })
+</script>
+<%- include("../partials/footer") %>

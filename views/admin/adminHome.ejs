@@ -1,0 +1,21 @@
+<%- include("../partials/header") %>
+
+<title>Admin Home</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/flash") %>
+<main>
+    <div class="container my-3">
+        <h2 class="text-center my-2">Admin Actions</h2>
+        <hr>
+        <div class="actions row">
+            <div class="action-item col-md m-3 d-flex justify-content-center align-items-center">
+                <a href="/admin/products">Products </a>
+            </div>
+            <div class="action-item col-md m-3 d-flex justify-content-center align-items-center"><a href="/admin/user">Users</a></div>
+            <div class="action-item col-md m-3 d-flex justify-content-center align-items-center"><a href="/admin/orders">Orders</a></div>
+        </div>
+    </div>
+</main>
+<%- include("../partials/footer") %>

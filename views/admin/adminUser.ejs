@@ -1,0 +1,235 @@
+<%- include("../partials/header") %>
+
+<title>Admin User Info</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/flash") %>
+<main>
+    <div class="container my-3">
+       
+        <h3 class="text-center">All Users</h3>
+        <hr>
+        <% if(person.length<1){ %> 
+            <h5 class="text-center">No User is Present ! </h5>
+        <%}
+        else{%>
+        <div class="user-details">
+            <ul class="list-group">
+                <%let idCount=0; for(data of person.reverse()){  idCount++;%>
+                    <li class="list-group-item my-2">
+                        <div class="productList d-flex row text-center">
+                            <div class="userPhoto col-md  d-flex justify-content-center align-items-center ">
+                                <% let photourl
+                                try{
+                                photourl=data.photo||`data:image/${data.image.contentType};base64,${data.image.data.toString('base64')}` }
+                                catch(e){
+                                    photourl=`https://toppng.com/uploads/preview/app-icon-set-login-icon-comments-avatar-icon-11553436380yill0nchdm.png`}%>
+                             
+                                 <img src="<%= photourl%>" class="rounded-circle" height="50" alt="" width="50"
+                                     loading="lazy" alt="Not Found"/>
+                                
+                                
+                            </div>
+                            <div class="userProd col-md d-flex align-items-center">
+                                <div class="userInfo p-2">
+                                    <h6 class="name">User Name : <%=data.username%></h6>
+                                   
+                                </div>
+                            </div>
+                            <div class="userProd col-md d-flex align-items-center">
+                                <div class="userInfo p-2">
+                                    <h6 class="email">Email Id : <%=data.email%></h6>
+                                </div>
+                            </div>
+                            <div class="userProd col-md d-flex align-items-center">
+                                <div class="userInfo p-2">
+                                    <h6 class="email">User Id : <%=data._id%></h6>
+                                </div>
+                            </div>
+                            <% let role="Consumer" ;if(data.role!==null||data.role!==undefined){role=data.role}%>
+                            <div class="userProd col-md d-flex align-items-center">
+                                <div class="userInfo p-2">
+                                    <h6 class="email">Role : <%=data.role%></h6>
+                                </div>
+                            </div>
+                        <
+                            <div class="userProd d-flex align-items-center justify-content-evenly align-items-center col-md my-2">
+                                <form action="/admin/user/<%=data._id%>/?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger">Remove <i class="far fa-trash-alt"></i></button>
+                                </form>
+                             </div>
+                             
+                             
+                        </div>
+                        <div class="accordion my-2" id="accordionCartAndOrders<%=idCount%>">
+                            <div class="accordion-item cart-info">
+                              <h2 class="accordion-header" id="headingOne">
+                                <button
+                                  class="accordion-button collapsed "
+                                  type="button"
+                                  data-mdb-toggle="collapse"
+                                  data-mdb-target="#accordion-cart-collapse<%=idCount%>"
+                                  aria-expanded="true"
+                                  aria-controls="accordion-cart-collapse<%=idCount%>"
+                                >
+                                <h6> <strong>CART</strong></h6>
+                                </button>
+                              </h2>
+                              <div
+                                id="accordion-cart-collapse<%=idCount%>"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingOne"
+                                data-mdb-parent="#accordionCartAndOrders<%=idCount%>"
+                              >
+                                <div class="accordion-body">
+                                    <%if(data.cart.length<1){%>
+                                        <h5 class="text-center">No cart Items!</h5>
+                                    <%}else{%>
+                                    <ul class="list-group">
+                                        <% let count=0
+                                        for(product of data.cart){ count++%>
+                                            <li class="list-group-item my-2">
+                                                <h6>Product <%=count%></h6>
+                                               <%if(product.item==null){%>
+                                                <h5 class="text-center my-2">Sorry The product No longer Exists</h5>
+                                               <%}
+                                               else{%>
+                                                <div class="cartList d-flex row">
+                                                        <div class="itemPhoto col-md-2  d-flex align-center">
+                                                            <%if(product.item.image.data!=undefined ){%>
+                                                                <img src="data:image/<%=product.item.image.contentType%>;base64,<%=product.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+
+                                                            <%}
+                                                            else{%>
+                                                                <img src="<%=product.item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                                                            <%}%>
+                                                            
+                                                            
+                                                        </div>
+                                                        <div class="itemInfo col-md d-flex align-items-center">
+                                                            <div class="cartInfo p-2">
+                                                                <h6 class="name my-2">Product Name : <%=product.item.name%></h6>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="userProd col-md d-flex align-items-center">
+                                                            <div class="userInfo p-2">
+                                                                <h6 class="price">Price : <%=product.item.price%></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="userProd col-md d-flex align-items-center">
+                                                            <div class="userInfo p-2">
+                                                                <h6 class="quantity">Quantity : <%=product.quantity%></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="userProd d-flex align-items-center justify-content-center align-items-center col-md ">
+                                                            <div class="userInfo p-2">
+                                                                <h6 class="prodId">Product Id : <%=product.item._id%></h6>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                               <%}%>  
+                                            </li>
+                                        <%}%> 
+                                    </ul>
+                                <%}%>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item orders-info">
+                              <h2 class="accordion-header" id="headingOne">
+                                <button
+                                  class="accordion-button collapsed "
+                                  type="button"
+                                  data-mdb-toggle="collapse"
+                                  data-mdb-target="#accordion-orders-collapse<%=idCount%>"
+                                  aria-expanded="true"
+                                  aria-controls="accordion-orders-collapse<%=idCount%>"
+                                >
+                                 <h6> <strong>ORDERS</strong></h6>
+                                </button>
+                              </h2>
+                              <div
+                                id="accordion-orders-collapse<%=idCount%>"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingOne"
+                                data-mdb-parent="#accordionCartAndOrders<%=idCount%>"
+                              >
+                                <div class="accordion-body">
+                                    <%if(data.orders.length<1){%>
+                                        <h5 class="text-center">No Orders Given !</h5>
+                                    <%}else{%>
+                                    <ul class="list-group">
+                                        <% 
+                                        for(product of data.orders){ %>
+                                            <li class="list-group-item my-2">
+                                                
+                                              
+                                                <div class="card  my-4">
+                                                        <div class="card-header ">
+                                                         <h5>Date Of purchase : <%=String(product.purchaseDate).slice(0,16)%> Order Id : <%=product.orderid%></h5></div>
+                                                        
+                                                        <div class="card-body row">
+                                                            <ul class="list-group">
+                                                                <% let count=0;
+                                                                for(let orderItem of product.orderList) { count++  %>
+                                                                
+                                                                    <li class="list-group-item">
+                                                                        <h6>Product no : <%=count%></h6>
+                                                                        <%  if(orderItem.item==null){%>
+                                                                            <h5 class="text-center">This Product no longer exists sorry we cant display its information !</h5>
+                                                                        <%}
+                                                                        else{%>
+                                                                        <div class="itemList row">
+
+                                                                            <div class="itemList-img col-md-2" >
+                                                                                <%if(orderItem.item.image.data){%>
+                                                                                    <img src="data:image/<%=orderItem.item.image.contentType%>;base64,<%=orderItem.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+                                                                                <%}
+                                                                                else{%>
+                                                                                    <img src="<%=orderItem.item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                                                                                <%}%>
+                                                                            </div>
+                                                                            <div class="itemList-name col-5 d-flex align-items-center p-3">
+                                                                                <h5><%=orderItem.item.name%></h5>
+                                                                            </div>
+                                                                            <div class="itemList-price col d-flex align-items-center p-3">
+                                                                                <h5> Price :  &#x20B9; <%=orderItem.item.price%></h5>
+                                                                            </div>
+                                                                            <div class="itemList-quantity col d-flex align-items-center p-3">
+                                                                                <h5> Quantity : <%=orderItem.quantity%></h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    <%}%>
+                                                                    </li>
+                                                                <%}%> 
+                                                            </ul>
+                                                        
+                                                        </div>
+                                                        <div class="card-footer text-end">
+                                                            <h5>Payment Id : <%=product.paymentid%> &nbsp; Amount Paid :  &#x20B9; <%=product.finalPrice%></h5>
+                                                        </div>
+                                                    </div>
+                                                                                    
+                                                                                    </li>
+                                                                                <%}%> 
+                                                                            </ul>
+                                                                        <%}%>
+                                                                        </div>
+                                                                    </div>
+                            </div>
+                                                                    
+                        </div>
+                    </li>
+                <%}%>
+            </ul>
+            
+        </div>
+        <%}%>
+
+    </div>
+</main>
+<%- include("../partials/footer") %>

@@ -1,0 +1,30 @@
+<%- include("../partials/header") %>
+
+<title>Edit Comment</title>
+</head>
+<body>
+<%- include("../partials/navbar") %> 
+<main class="body-container">
+    <div class="home container">
+        <h1 class="text-center my-2">Edit Your Comment</h1>
+        <hr>
+        <div class="forms w-75 m-auto">
+            <form action="/products/<%=id%>/reviews/<%=rev_id%>?_method=PATCH" class="rating-system" method="POST" novalidate>
+                <div class="rating-num mb-2">
+                  <label class="form-label" for="customRange2">Give Your Rating</label>
+                  <div class="range">
+                    <input type="range" name="rating"class="form-range" min="0" max="5" id="customRange2" value="<%=data.rating%>"required/>
+                  </div>
+                </div>
+                <div class="review-item form-outline mb-3">
+                  <textarea class="form-control" id="textAreaExample" name="comment" rows="4" required><%=data.comment%></textarea>
+                  <label class="form-label" for="textAreaExample">Write a Product Review</label>
+                </div>
+                <div class="submit-button"><button type="submit" class="btn btn-primary mb-4">Save</button></div>
+              </form>
+             
+        </div>
+    </div>
+  
+</main>
+<%- include("../partials/footer") %>
