@@ -14,10 +14,10 @@ const currentUrl = require("../middlewares/currentUrl");
 const { v4: uuid } = require("uuid");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "/uploads/product"));
+    cb(null, "/uploads/product");
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "_" + uuid());
+    cb(null, new Date().toISOString().replace(/:/g, '-')+ file.originalname);
   },
 });
 
@@ -50,7 +50,7 @@ router.post(
 
       let file;
       try {
-        file = path.join(__dirname + "/uploads/product/" + req.file.filename);
+        file = path.join("/uploads/product/" + req.file.filename);
         data.image = { data: fs.readFileSync(file), contentType: "image/png" };
       } catch {
         data.image = null;
