@@ -14,7 +14,7 @@ const currentUrl = require("../middlewares/currentUrl");
 const { v4: uuid } = require("uuid");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "/uploads/product");
+    cb(null, path.join(__dirname,"/uploads/product"));
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-')+ file.originalname);
@@ -39,18 +39,14 @@ router.get("/products/new", isLoggedIn, isAdmin, (req, res) => {
     res.status(404).render("error/error", { status: "404" });
   }
 });
-router.post(
-  "/products/new",
-  isLoggedIn,
-  isAdmin,
-  upload.single("image"),
-  async (req, res) => {
+router.post("/products/new",isLoggedIn,isAdmin,upload.single("image"),async (req, res) => {
     try {
       let data = req.body;
 
       let file;
       try {
-        file = path.join("/uploads/product/" + req.file.filename);
+        console.log(req.file.path);
+        file = path.join(__dirname,"/uploads/product/" + req.file.filename);
         data.image = { data: fs.readFileSync(file), contentType: "image/png" };
       } catch {
         data.image = null;
