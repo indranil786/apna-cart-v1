@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "star":"asdasd"
+    "start":"node app.js"
   },
   "author": "Indranil Kar",
   "license": "ISC",
