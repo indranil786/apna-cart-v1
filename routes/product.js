@@ -11,13 +11,13 @@ const previousUrl = require("../middlewares/previousUrl");
 const path = require("path");
 const fs = require("fs");
 const currentUrl = require("../middlewares/currentUrl");
-
+const { v4: uuid } = require("uuid");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "/uploads/product"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "_" + Date.now());
+    cb(null, file.fieldname + "_" + uuid());
   },
 });
 
