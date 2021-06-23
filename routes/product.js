@@ -56,10 +56,7 @@ router.post(
         data.image = null;
       }
       await Product.create(data);
-      fs.unlink(file, function (err) {
-        if (err) throw err;
-        console.error("Delete Sucessfully");
-      });
+     
       req.flash("status", "Item Added Sucessfully!!");
       res.redirect("/admin/products");
     } catch (e) {
