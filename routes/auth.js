@@ -35,7 +35,7 @@ router.post("/register", upload.single("image"), async (req, res) => {
     });
     let file;
     try {
-      file = path.join(__dirname + "/uploads/users/" + req.file.filename);
+      file = path.join(__dirname,"/uploads/users/" + req.file.filename);
       userObj.image = {
         data:  fs.readFileSync(file),
         contentType: "image/png",
