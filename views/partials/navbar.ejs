@@ -8,8 +8,8 @@
             aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
-        <a class="navbar-brand mt-2 mt-lg-0 ms-4" href="/">
-            <h4>Apna Cart <i class="fas fa-shopping-cart"></i></h4>
+        <a class="navbar-brand mt-2 mt-lg-0  ms-3" href="/">
+            <h5>Apna Cart <i class="fas fa-shopping-cart"></i></h5>
         </a>
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,7 +33,7 @@
         <div class="d-flex align-items-center">
             <!-- Icon -->
             <% if(loginUser){ %>
-                <div class="userName me-3"><h5>Hello <%= loginUser.username%></h5></div>
+                <div class="userName me-3 d-none d-sm-block"><h5 class="">Hello <%= loginUser.username%></h5></div>
             <%}%> 
             <a class="text-reset me-3" href="/user/cart/">
                 <i class="fas fa-shopping-cart" style="font-size: 1.2rem;"></i>
@@ -62,10 +62,12 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
             <% if(loginUser){ %> 
-                
+                <li>
+                    <div class="dropdown-item">Hello <%= loginUser.username%></div>
+
+                </li>
                 <li>
                     <a class="dropdown-item" href="/user/orders">Your Orders</a>
- 
                 </li>
                 <li>
                     <a class="dropdown-item" href="/logout">Logout</a>

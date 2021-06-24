@@ -48,8 +48,6 @@ router.post("/products/new",isLoggedIn,isAdmin,upload.single("image"),async (req
         console.log(req.file.path);
         file = path.join(__dirname,"/uploads/product/" + req.file.filename);
         data.image = { data: fs.readFileSync(file), contentType: "image/png" };
-        console.log("\n\n\n\n\nThis is the file path\n\n\n\n\n")
-        console.log("\n\n\n\n\n",file,"\n\n\n\n\n\n\n\n\n")
       } catch {
         data.image = null;
       }
