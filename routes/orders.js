@@ -50,13 +50,14 @@ router.post("/user/order/verify", isLoggedIn,async (req, res) => {
   if (expectedSignature === req.body.razorpay_signature) {
     try {
       const userObj = await Users.findById(req.user._id);
+      let amount=req.body.order.amount/100;
       const data = {
         user: req.user,
         orderid: req.body.razorpay_order_id,
         paymentid: req.body.razorpay_payment_id,
         orderList: userObj.cart,
         purchaseDate: Date.now(),
-        finalPrice: req.body.order.amount,
+        finalPrice: amount,
       };
       
       const orderObj = new Orders(data);
