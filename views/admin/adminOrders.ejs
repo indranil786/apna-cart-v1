@@ -17,7 +17,9 @@
             <div class="card  my-4">
                 <div class="card-header text-center row">
                     <div class="col-md"><h5>Order Id : <%=item.orderid%></h5></div>
-                   <div class="col-md"><h5>Ordered By "<%=item.user.username%>" </h5></div>   
+                    <%let usrname= "deleted_user" 
+                     if(item.user!=null){usrname=item.user.username}%>
+                   <div class="col-md"><h5>Ordered By "<%=usrname %>" </h5></div>   
                     <div class="col-md"> <h5>Date Of purchase : <%=String(item.purchaseDate).slice(0,16)%></h5></div>                        
                     
                  </div>

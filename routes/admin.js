@@ -73,6 +73,7 @@ router.get("/admin/orders",previousUrl,isLoggedIn,isAdmin,async(req,res)=>{
     })
     
     res.render('admin/adminOrders',{orders})
+//    res.send(orders);
 }
 catch(e){
     console.log(e);

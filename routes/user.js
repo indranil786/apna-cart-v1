@@ -83,6 +83,7 @@ router.get("/user/orders",currentUrl,isLoggedIn, async (req, res) => {
     await data.populate({path:'orders.orderList.item',model:Product}).execPopulate();
     const orders=data.orders;
     res.render("user/orders" ,{orders});
+    // res.send(orders)
     }catch(e){
         console.log(e);
         res.status(404).render('error/error',{"status":"404"})
