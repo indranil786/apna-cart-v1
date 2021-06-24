@@ -40,10 +40,10 @@ router.post("/register", upload.single("image"), async (req, res) => {
         data:  fs.readFileSync(file),
         contentType: "image/png",
       };
-      fs.unlink(file, function (err) {
-        if (err) throw err;
-        console.error("Delete Sucessfully");
-      });
+      // fs.unlink(file, function (err) {
+      //   if (err) throw err;
+      //   console.error("Delete Sucessfully");
+      // });
     } catch (e) {
       userObj.image = null;
     }
