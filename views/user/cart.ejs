@@ -166,7 +166,7 @@
         }
     const razorpay=(order)=>{
         var options = {
-                    "key": "rzp_test_jE6H7NuN99EMX7",
+                    "key": order.rzp_key,
                     "amount": order.amount,
                     "currency": "INR",
                     "name": "APNA CART",
@@ -226,7 +226,7 @@
           }
 
           postOrder("/user/order",data).then((order)=>{
-            console.log(order);
+            
             if(order.failure){
                 window.location.href = "/user/cart";
             }

@@ -24,6 +24,7 @@ router.post("/user/order",isLoggedIn, (req, res) => {
   instance.orders
     .create(data)
     .then((order) => {
+      order.rzp_key=process.env.RZP_key_id
       res.send(order);
     })
     .catch((err) => {
