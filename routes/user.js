@@ -29,17 +29,23 @@ router.post("/user/cart/:prodId",previousUrl,isLoggedIn,async (req,res)=>{
     const {prodId}=req.params;
     const userData=await Users.findById(req.user._id);
     const product=await Product.findById(prodId);
-    let flag=0;    
+    let flag=0;  let cartLimit=true;  
     for(user of userData.cart){
         
         if(prodId==user.item)
-        {   
+        {  
             user.quantity+=Number(req.body.quantity);
-           
+            if(user.quantity>5){
+               
+                cartLimit=false;
+            }
+            
             flag=1;
             break;
+            
         }
     }
+    
     if(flag!=1){
      
         obj={
@@ -47,9 +53,20 @@ router.post("/user/cart/:prodId",previousUrl,isLoggedIn,async (req,res)=>{
             quantity:Number(req.body.quantity)
         }
         userData.cart.push(obj);
+        await userData.save();
+        res.redirect(`/user/cart/`)
     }
-    await userData.save();
-    res.redirect(`/user/cart/`)
+    else{
+        if(cartLimit===false){
+            req.flash('error' ,"You cannot add more than 5 items..")
+            res.redirect(`/products/${prodId}`)
+        }
+        else{
+            await userData.save();
+            res.redirect(`/user/cart/`)
+        }
+    }
+    
 }catch(e){
     res.status(404).render('error/error',{"status":"404"})
 }
