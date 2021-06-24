@@ -9,7 +9,7 @@ const fs = require("fs");
 const currentUrl = require("../middlewares/currentUrl");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname,"/uploads/users"));
+    cb(null, path.join(__dirname,"/uploads/product"));
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-')+ file.originalname);
@@ -35,7 +35,7 @@ router.post("/register", upload.single("image"), async (req, res) => {
     });
     let file;
     try {
-      file = path.join(__dirname,"/uploads/users/" + req.file.filename);
+      file = path.join(__dirname,"/uploads/product/" + req.file.filename);
       userObj.image = {
         data:  fs.readFileSync(file),
         contentType: "image/png",
