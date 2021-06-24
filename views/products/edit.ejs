@@ -8,7 +8,7 @@
     <div class="home container">
         <h1 class="text-center my-2">Edit product Item</h1>
         <hr>
-        <div class="forms w-75 m-auto">
+        <div class="forms res-width m-auto">
             <form action="/products/<%=data._id %>?_method=PATCH" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
                 <div class="form-outline mb-4">
                     <input type="text" id="name" class="form-control" name="name" value="<%=data.name%>" required/>
@@ -39,7 +39,7 @@
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">Not a valid description!</div>
                   </div>
-                  <div class="btn-container d-flex flex-column w-25 justify-center m-auto">
+                  <div class="btn-container d-flex flex-column w-50 justify-center m-auto">
                     <button type="submit" class="btn btn-primary mb-4">Save</button>
                     <button type="reset" class="btn btn-primary mb-4">Reset</button>
                   </div>

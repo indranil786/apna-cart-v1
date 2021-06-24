@@ -1,3 +1,12 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+main{
+    min-height: 95vh;
+}
+
 .navbar{
     position:sticky;
     width:100%;
@@ -14,6 +23,7 @@
 }
 body{
     background-color: #f0f0f0;
+    
 }
 #dp-pick{
     border-radius: 50px;
@@ -23,26 +33,52 @@ body{
     padding:5px;
     text-align: left;
 }
-.actions .action-item{
-    background-color: #2978B5;
+/* .actions .action-item{
+   
     text-decoration: none;
     color: white;
-    height:200px;
     border-radius:12px;
     
     
+} */
+
+.actions{
+    background-color: #4d6f8f;
+    border-radius: 12px;
 }
-.actions .action-item a,#createNewButton a{
+.action-item{
+    width:100%;
+
+}
+.action-item a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+/* .actions .action-item a,#createNewButton a{
     text-decoration: none;
     color: white;
     font-size:1.5rem;
-}
-#createNewButton{
+} */
+/* #createNewButton{
     font-size:1.2rem;
-}
+} */
 
 .accordion-item{
     border: none;
     border-bottom: 1px solid #DDDDDD;
 }
 
+/* .footer-pos{
+    position:fixed;
+    bottom:0;
+    width:100%;
+} */
+.res-width{
+    width:55%;
+}
+
+@media only screen and (max-width: 789px) {
+    .res-width{
+        width:95%;
+    }
+}
