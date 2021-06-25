@@ -42,7 +42,7 @@ router.get("/products/new", isLoggedIn, isAdmin, (req, res) => {
 router.post("/products/new",isLoggedIn,isAdmin,upload.single("image"),async (req, res) => {
     try {
       let data = req.body;
-
+      if(data.price<=Number(100000)){
       let file;
       try {
         console.log(req.file.path);
@@ -55,6 +55,11 @@ router.post("/products/new",isLoggedIn,isAdmin,upload.single("image"),async (req
      
       req.flash("status", "Item Added Sucessfully!!");
       res.redirect("/admin/products");
+    }
+    else{
+      req.flash('error',"You cannot set price more than 100000");
+      res.redirect("/products/new")
+    }
     } catch (e) {
       console.log(e);
       res.status(404).render("error/error", { status: "404" });
@@ -82,34 +87,32 @@ router.get("/products/:id/edit", isLoggedIn, isAdmin, async (req, res) => {
     res.status(404).render("error/error", { status: "404" });
   }
 });
-router.patch(
-  "/products/:id",
-  isLoggedIn,
-  isAdmin,
-  upload.single("image"),
-  async (req, res) => {
+router.patch("/products/:id",isLoggedIn,isAdmin,upload.single("image"),async (req, res) => {
     try {
       const { id } = req.params;
       const data = req.body;
-      if (req.file != undefined) {
-        let file = path.join(
-          __dirname + "/uploads/product/" + req.file.filename
-        );
-        data.image = {
-          data: fs.readFileSync(path.join(file)),
-          contentType: "image/png",
-        };
-        fs.unlink(file, function (err) {
-          if (err) throw err;
-          console.log("Deleted Sucessfully");
-        });
-      }
-      await Product.findByIdAndUpdate(id, data);
+      if(data.price<=Number(100000)){
+          if (req.file != undefined) {
+            let file = path.join(
+              __dirname + "/uploads/product/" + req.file.filename
+            );
+            data.image = {
+              data: fs.readFileSync(path.join(file)),
+              contentType: "image/png",
+            };
+          }
+          await Product.findByIdAndUpdate(id, data);
 
-      console.log("Database updated");
-      req.flash("status", "Item details were editted and sucessfully");
-      res.redirect("/admin/products");
+          console.log("Database updated");
+          req.flash("status", "Item details were editted and sucessfully");
+          res.redirect("/admin/products");
+        }
+        else{
+          req.flash('error',"You cannot set price more than 100000");
+          res.redirect(`/products/${id}/edit`)
+        }
     } catch (e) {
+      console.log(e);
       res.status(404).render("error/error", { status: "404" });
     }
   }
