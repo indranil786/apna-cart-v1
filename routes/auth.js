@@ -9,7 +9,7 @@ const fs = require("fs");
 const currentUrl = require("../middlewares/currentUrl");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname,"/uploads/user"));
+    cb(null, path.join(__dirname,"/uploads/users"));
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-')+ file.originalname);
