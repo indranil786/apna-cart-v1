@@ -151,6 +151,7 @@ router.post("/products/:id/reviews", isLoggedIn, async (req, res) => {
     //reviewObj is a object that is then saved in data base;
     await reviewObj.save();
     console.log("Comment Saved in Database");
+    req.flash("success","Your review was added successfully !")
     res.redirect(`/products/${id}`);
   } catch (e) {
     res.status(404).render("error/error", { status: "404" });
