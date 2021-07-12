@@ -38,12 +38,13 @@ router.post("/user/order",isLoggedIn, (req, res) => {
   }
 });
 router.post("/user/order/verify", isLoggedIn,async (req, res) => {
+  console.log("Order Verify")
   try{
 
     body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
 
   const expectedSignature = crypto
-    .createHmac("sha256", `eNVlu16gzJUVPNMUpy8Et3Sy`)
+    .createHmac("sha256", process.env.RZP_key_secret)
     .update(body.toString())
     .digest("hex");
 
