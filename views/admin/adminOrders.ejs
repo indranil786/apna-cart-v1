@@ -8,6 +8,10 @@
 <div class="container">
     <h2 class="order-heading my-3 text-center">Admin Orders Page</h2>
     <hr>
+    <div class="backButton-container d-flex justify-content-center my-2">            
+        <a href="/admin/home" class="admin-home btn btn-primary btn-lg" id="adminHomeButton"><i class="fas fa-arrow-left"></i> &nbsp;Back</a>
+    </div>
+
     <% if(orders.length<1){ %>
         <h2 class="text-center">There are no Orders ! </h2>
     <%}
