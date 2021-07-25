@@ -11,19 +11,19 @@
         <hr>
         <h4>All products</h4>
         <hr>
-        <section class="product-holder mt-2">
+        <section class="product-holder my-3">
           <% if(data.length<1){ %> 
             <h3 class="text-center my-3">Sorry no products are available</h3>
           <%}
           else{%>
-            <div class="card-row d-flex row">
+            <div class="card-row my-3 row d-flex justify-content-evenly">
 
                 <% for(let index=data.length-1;index>=0;index--){
                     let item=data[index];
                     %>
                     
-                    <div class="card col-md-3 ">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <div class="product-card card col-md-3 ">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light" style="border-radius: 12px 12px 0px 0px;">
                           
                           <% if(item.image !=undefined && item.image.data!=undefined){ %>
                           <img
@@ -43,11 +43,11 @@
                             <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                           </a>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body ">
                           <h5 class="card-title"> <%= item.name%> </h5>
                           <h6 class="card-subtitle mb-2 text-muted">Price &#8377; <%=item.price%></h6>
                           <p class="card-text">
-                            <%=item.desc.slice(0,50)%>...
+                            <%=item.desc.slice(0,90)%>...
                           </p>
                           <a href="/products/<%=item._id%>" class="btn btn-primary">View More</a>
                         </div>
