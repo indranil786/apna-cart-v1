@@ -103,6 +103,10 @@ app.use(authRoutes);
 app.use(userRoutes);
 app.use(orderRoute);
 app.use(adminRoute);
+app.use('*',(req,res)=>{
+  res.render('error/error')
+})
+
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server started at port ${process.env.PORT || 3000}`);
 });
